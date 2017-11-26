@@ -22,26 +22,32 @@ namespace Interview
         public void Delete(IComparable id)
         {
             var removeReservation = FindById(id);
+
+            if (removeReservation == null)
+                throw new System.Exception();
+
             _inMemoryReservation.Remove(removeReservation);
         }
         public void Save(Reservation item)
         {
-            var savedReservation = FindById(item.Id);
-            if (savedReservation == null)
+            if (item.Id == null)
             {
                 item.Id = _inMemoryReservation.Count + 1;
                 _inMemoryReservation.Add(item);
             }
-            else
-            {
-                savedReservation.Firstnanme = item.Firstnanme;
-                savedReservation.Lastname = item.Lastname;
-                savedReservation.DepartureDate = item.DepartureDate;
-                savedReservation.DepatureCity = item.DepatureCity;
-                savedReservation.DestinationCity = item.DestinationCity;
-                savedReservation.ReturnDate = item.ReturnDate;
-            }
-           
+
+            var savedReservation = FindById(item.Id);
+
+            if (savedReservation == null)
+                throw new Exception();
+
+            savedReservation.Firstnanme = item.Firstnanme;
+            savedReservation.Lastname = item.Lastname;
+            savedReservation.DepartureDate = item.DepartureDate;
+            savedReservation.DepatureCity = item.DepatureCity;
+            savedReservation.DestinationCity = item.DestinationCity;
+            savedReservation.ReturnDate = item.ReturnDate;
+          
         }
         public Reservation FindById(IComparable id)
         {

@@ -10,7 +10,7 @@ namespace Interview.Models
 
         public Reservation ()
         {
-            //Id = 0;
+            Id = null;
         }
 
         public IComparable Id { get; set; }
