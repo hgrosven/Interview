@@ -17,20 +17,43 @@ namespace Interview
 
         public IEnumerable<Reservation> All()
         {
-            throw new NotImplementedException();
+            return _inMemoryReservation;
         }
         public void Delete(IComparable id)
         {
-            throw new NotImplementedException();
+            var removeReservation = FindById(id);
+            _inMemoryReservation.Remove(removeReservation);
         }
         public void Save(Reservation item)
         {
-            throw new NotImplementedException();
+            var savedReservation = FindById(item.Id);
+            if (savedReservation == null)
+            {
+                item.Id = _inMemoryReservation.Count + 1;
+                _inMemoryReservation.Add(item);
+            }
+            else
+            {
+                savedReservation.Firstnanme = item.Firstnanme;
+                savedReservation.Lastname = item.Lastname;
+                savedReservation.DepartureDate = item.DepartureDate;
+                savedReservation.DepatureCity = item.DepatureCity;
+                savedReservation.DestinationCity = item.DestinationCity;
+                savedReservation.ReturnDate = item.ReturnDate;
+            }
+           
         }
         public Reservation FindById(IComparable id)
         {
-            throw new NotImplementedException();
+            var reservation = _inMemoryReservation.Find(Matches(id));
+            return reservation;
         }
+
+        private  Predicate<Reservation> Matches(IComparable id)
+        {
+            return i => i.Id.Equals(id);
+        }
+
 
 
     }

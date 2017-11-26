@@ -55,6 +55,11 @@ namespace Interview
             };
 
             reservationRepository.Save(reservation);
+
+            var savedReservation = reservationRepository.FindById(1);
+
+            Assert.AreEqual(reservation,savedReservation);
+
         }
 
         [Test]
